@@ -1,7 +1,6 @@
 package br.com.cursomc.resource;
 
 import br.com.cursomc.domain.Categoria;
-import br.com.cursomc.repositories.CategoriaRepository;
 import br.com.cursomc.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
