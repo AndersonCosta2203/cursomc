@@ -1,6 +1,7 @@
 package br.com.cursomc.domain;
 
 import br.com.cursomc.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
@@ -11,9 +12,11 @@ import java.util.Date;
 public class PagamentoComBoleto extends Pagamento {
 
     @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
     private Date dataVencimento;
 
     @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
     private Date dataPagamento;
 
     public PagamentoComBoleto(Integer id, Pedido pedido, EstadoPagamento estado, Date dataVencimento, Date dataPagamento) {
