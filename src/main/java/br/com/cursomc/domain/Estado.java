@@ -16,8 +16,7 @@ public class Estado implements Serializable {
     private Integer id;
     private String nome;
 
-    @JsonManagedReference
-    // Para informar que a categoria será reponsável por trazer a lista de produtos, para evitar refência cíclica
+    @JsonManagedReference // Para informar que a categoria será reponsável por trazer a lista de produtos, para evitar referência cíclica
     @OneToMany(mappedBy = "estado")
     private List<Cidade> cidades = new ArrayList<>();
 
@@ -63,7 +62,6 @@ public class Estado implements Serializable {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id);
     }
 }
