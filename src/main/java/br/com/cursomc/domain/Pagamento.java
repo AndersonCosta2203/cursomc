@@ -4,12 +4,14 @@ import br.com.cursomc.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import javax.sql.rowset.serial.SerialArray;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) /* Para configurar o JPA, onde será gerada apenas uma tabela,
                                                     incluindo os atributos das subclasses*/
-public abstract class Pagamento {
+public abstract class Pagamento implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
