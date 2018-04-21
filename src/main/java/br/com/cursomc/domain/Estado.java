@@ -1,6 +1,6 @@
 package br.com.cursomc.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,7 +16,7 @@ public class Estado implements Serializable {
     private Integer id;
     private String nome;
 
-    @JsonBackReference // Para informar que a categoria será reponsável por trazer a lista de produtos, para evitar referência cíclica
+    @JsonIgnore // Para informar que a categoria será reponsável por trazer a lista de produtos, para evitar referência cíclica
     @OneToMany(mappedBy = "estado")
     private List<Cidade> cidades = new ArrayList<>();
 

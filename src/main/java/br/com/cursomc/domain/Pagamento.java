@@ -1,7 +1,7 @@
 package br.com.cursomc.domain;
 
 import br.com.cursomc.domain.enums.EstadoPagamento;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,7 +16,7 @@ public abstract class Pagamento implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @JsonBackReference
+    @JsonIgnore
     @JoinColumn(name = "pedido_id")
     @OneToOne
     @MapsId /* Para não criar um relacionamento bidirecional, onde pode haver um custo muito grande,
