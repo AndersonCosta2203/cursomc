@@ -1,4 +1,4 @@
-package br.com.cursomc.resource;
+package br.com.cursomc.resources;
 
 import br.com.cursomc.domain.Categoria;
 import br.com.cursomc.services.CategoriaService;

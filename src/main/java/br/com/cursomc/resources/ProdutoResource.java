@@ -1,4 +1,4 @@
-package br.com.cursomc.resource;
+package br.com.cursomc.resources;
 
 import br.com.cursomc.domain.Produto;
 import br.com.cursomc.services.ProdutoService;
