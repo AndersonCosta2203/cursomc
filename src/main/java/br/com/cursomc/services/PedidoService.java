@@ -14,7 +14,7 @@ public class PedidoService {
     @Autowired // Injeção de dependência
     private PedidoRepository pedidoRepository;
 
-    public Pedido buscar(Integer id) {
+    public Pedido find(Integer id) {
         // A partir da versão 2.x.x do Spring, o método findById substitui o método findOne
         // A finalidade de uso classe Optional é para null, quando o resultado não é encontrado
         Optional<Pedido> obj = pedidoRepository.findById(id);

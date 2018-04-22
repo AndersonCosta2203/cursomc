@@ -14,7 +14,7 @@ public class EstadoService {
     @Autowired // Injeção de dependência
     private EstadoRepository estadoRepository;
 
-    public Estado buscar(Integer id) {
+    public Estado find(Integer id) {
         // A partir da versão 2.x.x do Spring, o método findById substitui o método findOne
         // A finalidade de uso classe Optional é para null, quando o resultado não é encontrado
         Optional<Estado> obj = estadoRepository.findById(id);

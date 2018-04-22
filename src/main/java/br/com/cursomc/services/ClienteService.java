@@ -14,7 +14,7 @@ public class ClienteService {
     @Autowired // Injeção de dependência
     private ClienteRepository clienteRepository;
 
-    public Cliente buscar(Integer id) {
+    public Cliente find(Integer id) {
         // A partir da versão 2.x.x do Spring, o método findById substitui o método findOne
         // A finalidade de uso classe Optional é para null, quando o resultado não é encontrado
         Optional<Cliente> obj = clienteRepository.findById(id);

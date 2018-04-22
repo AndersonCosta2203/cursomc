@@ -14,7 +14,7 @@ public class CidadeService {
     @Autowired // Injeção de dependência
     private CidadeRepository cidadeRepository;
 
-    public Cidade buscar(Integer id) {
+    public Cidade find(Integer id) {
         // A partir da versão 2.x.x do Spring, o método findById substitui o método findOne
         // A finalidade de uso classe Optional é para null, quando o resultado não é encontrado
         Optional<Cidade> obj = cidadeRepository.findById(id);
