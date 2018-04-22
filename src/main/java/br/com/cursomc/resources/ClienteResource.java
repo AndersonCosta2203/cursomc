@@ -2,6 +2,7 @@ package br.com.cursomc.resources;
 
 import br.com.cursomc.domain.Cliente;
 import br.com.cursomc.dto.ClienteDTO;
+import br.com.cursomc.dto.ClienteNewDTO;
 import br.com.cursomc.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,8 +30,9 @@ public class ClienteResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO objDTO) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDTO) {
         Cliente obj = clienteService.insert(clienteService.fromDTO(objDTO));
+
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
