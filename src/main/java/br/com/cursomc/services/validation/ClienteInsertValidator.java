@@ -20,7 +20,6 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
 
     @Override
     public void initialize(ClienteInsert ann) {
-        throw new UnsupportedOperationException("Método não implementado");
     }
 
     /*
