@@ -19,11 +19,12 @@ public class Cliente implements Serializable {
 
     private Integer tipo;
 
-    @OneToMany(mappedBy = "cliente")
+    /* Para apagar em cascata as dependecias, utilizar (cascade = CascadeType.ALL) */
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Endereco> enderecos = new ArrayList<>();
 
-    // Utilizado Set, pois não aceita repetição
-    // Não foi criada uma classe conforme o diagrama, pois possui apenas um atributo
+    /* Utilizado Set, pois não aceita repetição
+       Não foi criada uma classe conforme o diagrama, pois possui apenas um atributo */
     @ElementCollection
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();

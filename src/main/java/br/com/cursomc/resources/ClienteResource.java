@@ -42,7 +42,6 @@ public class ClienteResource {
     public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO objDTO, @PathVariable Integer id) {
         objDTO.setId(id);
         clienteService.update(clienteService.fromDTO(objDTO));
-        clienteService.update(clienteService.fromDTO(objDTO));
         return ResponseEntity.noContent().build();
     }
 
