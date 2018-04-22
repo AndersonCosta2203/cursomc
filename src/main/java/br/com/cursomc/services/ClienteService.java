@@ -1,7 +1,6 @@
 package br.com.cursomc.services;
 
 import br.com.cursomc.domain.Cliente;
-import br.com.cursomc.domain.Cliente;
 import br.com.cursomc.dto.ClienteDTO;
 import br.com.cursomc.repositories.ClienteRepository;
 import br.com.cursomc.services.exceptions.DataIntegrityException;

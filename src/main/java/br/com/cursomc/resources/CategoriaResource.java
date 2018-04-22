@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import javax.xml.ws.Response;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +39,7 @@ public class CategoriaResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDTO, @PathVariable Integer id) {
         objDTO.setId(id);
-        Categoria obj = categoriaService.update(categoriaService.fromDTO(objDTO));
+        categoriaService.update(categoriaService.fromDTO(objDTO));
         return ResponseEntity.noContent().build();
     }
 
