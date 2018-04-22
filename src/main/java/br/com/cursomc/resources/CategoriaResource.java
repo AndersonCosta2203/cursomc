@@ -1,13 +1,17 @@
 package br.com.cursomc.resources;
 
 import br.com.cursomc.domain.Categoria;
+import br.com.cursomc.dto.CategoriaDTO;
 import br.com.cursomc.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.xml.ws.Response;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController //Significa que a classe será um controlador Rest
@@ -42,5 +46,12 @@ public class CategoriaResource {
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         categoriaService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<CategoriaDTO>> findAll() {
+        List<CategoriaDTO> listaCategoriasDTO = new ArrayList<>();
+        categoriaService.findAll().forEach(c -> listaCategoriasDTO.add(new CategoriaDTO(c)));
+        return ResponseEntity.ok().body(listaCategoriasDTO);
     }
 }
