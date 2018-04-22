@@ -2,42 +2,47 @@ package br.com.cursomc.services.validation;
 
 import br.com.cursomc.domain.Cliente;
 import br.com.cursomc.domain.enums.TipoCliente;
+import br.com.cursomc.dto.ClienteDTO;
 import br.com.cursomc.dto.ClienteNewDTO;
 import br.com.cursomc.repositories.ClienteRepository;
 import br.com.cursomc.resources.exception.FieldMessage;
 import br.com.cursomc.services.validation.utils.BR;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.devtools.remote.server.HandlerMapper;
+import org.springframework.web.servlet.HandlerMapping;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO> {
+public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
+
+    @Autowired
+    HttpServletRequest httpServletRequest;
 
     @Autowired
     ClienteRepository clienteRepository;
 
-    /*
+   /*
     * Tem que retornar true se o objeto for válido e false para objeto inválido
     */
     @Override
-    public boolean isValid(ClienteNewDTO objDto, ConstraintValidatorContext context) {
+    public boolean isValid(ClienteDTO objDto, ConstraintValidatorContext context) {
+        /*
+        * Para pegar o valor do parametro passado na URI quando o update do cliente foi chamado
+        * */
+        Map<String, String> map = (Map<String, String>) httpServletRequest.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+        Integer uriId = Integer.parseInt(map.get("id"));
+
         List<FieldMessage> list = new ArrayList<>();
 
         // inclua os testes aqui, inserindo erros na lista
-        if (objDto.getTipo().equals(TipoCliente.PESSOAFISICA.getCod()) &&
-                !BR.isValidCPF(objDto.getCpfOuCnpj())){
-            list.add(new FieldMessage("cpfOuCnpj", "CPF inválido"));
-        }
-
-        if (objDto.getTipo().equals(TipoCliente.PESSOAJURIDIA.getCod()) &&
-                !BR.isValidCNPJ(objDto.getCpfOuCnpj())){
-            list.add(new FieldMessage("cpfOuCnpj", "CNPJ inválido"));
-        }
-
         Cliente cliente = clienteRepository.findByEmail(objDto.getEmail());
-        if (cliente != null) {
+        if (cliente != null && !cliente.getId().equals(uriId)) {
             list.add(new FieldMessage("email", "Email já existente"));
         }
 
