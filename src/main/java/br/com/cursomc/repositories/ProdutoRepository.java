@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface ProdutoRepository extends JpaRepository<Produto, Integer> {
    /*
-    * Este nome: findDistinctByNomeContainingAndCategoriasIn substitui toda a Query
+    * Este nome: findDistinctByNomeContainingAndCategoriasIn substitui toda a Query com os @Param
     * Se existir o @Query, sobrepõe o nome da consulta que realiza o select da mesma maneira
     */
     @Transactional(readOnly = true)

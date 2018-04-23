@@ -33,8 +33,6 @@ public class ProdutoResource {
             @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction
     ) {
-        System.out.println("[ nome: "+produto+" ]\n"+ "[ categorias: "+categorias+" ]\n"+
-                           "[ page: "+page+" ]\n"+ "[ linesPerPage: "+linesPerPage+"]\n"+ "[ orderBy: "+orderBy+" ]\n");
         String nomeDecoded = URL.decodeParam(produto);
         List<Integer> ids = URL.decodeIntList(categorias);
 

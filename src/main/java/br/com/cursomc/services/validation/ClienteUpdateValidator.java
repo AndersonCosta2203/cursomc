@@ -1,21 +1,16 @@
 package br.com.cursomc.services.validation;
 
 import br.com.cursomc.domain.Cliente;
-import br.com.cursomc.domain.enums.TipoCliente;
 import br.com.cursomc.dto.ClienteDTO;
-import br.com.cursomc.dto.ClienteNewDTO;
 import br.com.cursomc.repositories.ClienteRepository;
 import br.com.cursomc.resources.exception.FieldMessage;
-import br.com.cursomc.services.validation.utils.BR;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.devtools.remote.server.HandlerMapper;
 import org.springframework.web.servlet.HandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

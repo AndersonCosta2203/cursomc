@@ -3,7 +3,6 @@ package br.com.cursomc.services;
 import br.com.cursomc.domain.Cidade;
 import br.com.cursomc.domain.Cliente;
 import br.com.cursomc.domain.Endereco;
-import br.com.cursomc.domain.Estado;
 import br.com.cursomc.domain.enums.TipoCliente;
 import br.com.cursomc.dto.ClienteDTO;
 import br.com.cursomc.dto.ClienteNewDTO;
