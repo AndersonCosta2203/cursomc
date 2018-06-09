@@ -2,6 +2,7 @@ package br.com.cursomc.domain;
 
 import br.com.cursomc.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +11,8 @@ import java.util.Objects;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) /* Para configurar o JPA, onde será gerada apenas uma tabela,
                                                     incluindo os atributos das subclasses*/
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type") /* Esta notação está dizendo que a classe
+    terá um campo adicional que se chama @type, este campo irá identificar o tipo do pagamento*/
 public abstract class Pagamento implements Serializable {
 
     @Id

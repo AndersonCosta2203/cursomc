@@ -1,10 +1,12 @@
 package br.com.cursomc.domain;
 
 import br.com.cursomc.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.Entity;
 
 @Entity
+@JsonTypeName("pagamentoComCartao") // Vai identificar o tipo de pagamento no json da entidade Pagamento
 public class PagamentoComCartao extends Pagamento {
 
     private Integer numeroDeParcelas;

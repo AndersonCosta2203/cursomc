@@ -13,8 +13,12 @@ public class Cliente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String nome;
+
+    @Column(unique = true)
     private String email;
+
     private String cpfOuCnpj;
 
     private Integer tipo;
@@ -47,8 +51,7 @@ public class Cliente implements Serializable {
         this.email = email;
     }
 
-    public Cliente() {
-    }
+    public Cliente() {}
 
     public Integer getId() {
         return id;
@@ -90,10 +93,6 @@ public class Cliente implements Serializable {
         this.tipo = tipo.getCod();
     }
 
-    public void setTipo(Integer tipo) {
-        this.tipo = tipo;
-    }
-
     public List<Endereco> getEnderecos() {
         return enderecos;
     }
@@ -117,6 +116,8 @@ public class Cliente implements Serializable {
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

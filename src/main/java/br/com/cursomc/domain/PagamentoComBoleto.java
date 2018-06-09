@@ -2,6 +2,7 @@ package br.com.cursomc.domain;
 
 import br.com.cursomc.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
@@ -9,6 +10,7 @@ import javax.persistence.TemporalType;
 import java.util.Date;
 
 @Entity
+@JsonTypeName("pagamentoComBoleto") // Vai identificar o tipo de pagamento no json da entidade Pagamento
 public class PagamentoComBoleto extends Pagamento {
 
     @Temporal(TemporalType.DATE)

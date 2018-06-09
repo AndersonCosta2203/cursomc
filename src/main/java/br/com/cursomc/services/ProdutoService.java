@@ -23,6 +23,11 @@ public class ProdutoService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
+    /**
+     * Método responsável pela pesquisa de um produto pelo ID
+     * @param id Código identificador do produto
+     * @return Produto
+     */
     public Produto find(Integer id) {
         // A partir da versão 2.x.x do Spring, o método findById substitui o método findOne
         // A finalidade de uso classe Optional é para null, quando o resultado não é encontrado
