@@ -1,9 +1,6 @@
 package br.com.cursomc.services;
 
-import br.com.cursomc.domain.ItemPedido;
-import br.com.cursomc.domain.PagamentoComBoleto;
-import br.com.cursomc.domain.PagamentoComCartao;
-import br.com.cursomc.domain.Pedido;
+import br.com.cursomc.domain.*;
 import br.com.cursomc.domain.enums.EstadoPagamento;
 import br.com.cursomc.repositories.ItemPedidoRepository;
 import br.com.cursomc.repositories.PagamentoRepository;
@@ -35,6 +32,9 @@ public class PedidoService {
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
 
+    @Autowired
+    private ClienteService clienteService;
+
     public Pedido find(Integer id) {
         // A partir da versão 2.x.x do Spring, o método findById substitui o método findOne
         // A finalidade de uso classe Optional é para null, quando o resultado não é encontrado
@@ -51,6 +51,7 @@ public class PedidoService {
     public Pedido insert(Pedido obj) {
         obj.setId(null);
         obj.setInstante(new Date());
+        obj.setCliente(clienteService.find(obj.getCliente().getId()));
         obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
         obj.getPagamento().setPedido(obj); // O pagamento tem que conhecer o pedido dele
 
@@ -65,12 +66,12 @@ public class PedidoService {
 
         for (ItemPedido itemPedido : obj.getItens()) {
             itemPedido.setDesconto(0.00);
-            itemPedido.setPreco(produtoService.find(itemPedido.getProduto().getId()).getPreco());
+            itemPedido.setProduto(produtoService.find(itemPedido.getProduto().getId()));
+            itemPedido.setPreco(itemPedido.getProduto().getPreco());
             itemPedido.setPedido(obj);
         }
         itemPedidoRepository.saveAll(obj.getItens());
+        System.out.println(obj);
         return obj;
     }
-
-    // usar ProdutoService ao invés de ProdutoRepository
 }
