@@ -35,6 +35,9 @@ public class PedidoService {
     @Autowired
     private ClienteService clienteService;
 
+    @Autowired
+    private EmailService emailService;
+
     public Pedido find(Integer id) {
         // A partir da versão 2.x.x do Spring, o método findById substitui o método findOne
         // A finalidade de uso classe Optional é para null, quando o resultado não é encontrado
@@ -71,7 +74,9 @@ public class PedidoService {
             itemPedido.setPedido(obj);
         }
         itemPedidoRepository.saveAll(obj.getItens());
-        System.out.println(obj);
+
+        emailService.senderOrderConfirmationEmail(obj);
+
         return obj;
     }
 }
