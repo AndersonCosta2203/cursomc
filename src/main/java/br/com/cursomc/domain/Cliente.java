@@ -1,11 +1,13 @@
 package br.com.cursomc.domain;
 
+import br.com.cursomc.domain.enums.Perfil;
 import br.com.cursomc.domain.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Cliente implements Serializable {
@@ -40,6 +42,12 @@ public class Cliente implements Serializable {
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
 
+    /* FetchType.EAGER => Utiliza-se para que seja obrigatório, sempre que buscar um cliente no banco de dados,
+        automaticamente serão buscados os Perfis também */
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "PERFIS")
+    private Set<Integer> perfis = new HashSet<>();
+
     public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo, String senha) {
         this.id = id;
         this.nome = nome;
@@ -47,15 +55,19 @@ public class Cliente implements Serializable {
         this.cpfOuCnpj = cpfOuCnpj;
         this.tipo = tipo == null ? null : tipo.getCod();
         this.senha = senha;
+        addPerfil(Perfil.CLIENTE);
     }
 
     public Cliente(Integer id, String nome, String email) {
         this.id = id;
         this.nome = nome;
         this.email = email;
+        addPerfil(Perfil.CLIENTE);
     }
 
-    public Cliente() {}
+    public Cliente() {
+        addPerfil(Perfil.CLIENTE);
+    }
 
     public Integer getId() {
         return id;
@@ -127,6 +139,14 @@ public class Cliente implements Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Set<Perfil> getPerfis() {
+        return this.perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+    }
+
+    public void addPerfil(Perfil perfil) {
+        this.perfis.add(perfil.getCod());
     }
 
     @Override

@@ -31,7 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // Lista de resources onde são permitidas GET
     private static final String[] PUBLIC_MATCHERS_GET = {
             "/produtos/**",
-            "/categorias/**"
+            "/categorias/**",
+            "/clientes/**"
     };
 
     @Override

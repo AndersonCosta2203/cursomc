@@ -1,5 +1,6 @@
 package br.com.cursomc.services;
 
+import br.com.cursomc.domain.enums.Perfil;
 import br.com.cursomc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import br.com.cursomc.domain.*;
@@ -107,12 +108,22 @@ public class DBService {
                 bCryptPasswordEncoder.encode("123"));
         cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 
+        Cliente cli2 = new Cliente(null, "Ana Costa", "nelio.iftm@gmail.com", "31628382740", TipoCliente.PESSOAFISICA,
+                bCryptPasswordEncoder.encode("123"));
+        cli2.getTelefones().addAll(Arrays.asList("93883321", "34252625"));
+        cli2.addPerfil(Perfil.ADMIN);
+
         Endereco end1 = new Endereco(null, "Rua Flores", "300", "Apto 203", "Jardim", "38220834", cli1, c1);
         Endereco end2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+        Endereco e3 = new Endereco(null, "Avenida Floriano", "2106", null, "Centro", "281777012", cli2, c2);
+
         cli1.getEnderecos().addAll(Arrays.asList(end1, end2));
+        cli2.getEnderecos().addAll(Arrays.asList(e3));
 
         clienteRepository.saveAll(Arrays.asList(cli1));
-        enderecoRepository.saveAll(Arrays.asList(end1, end2));
+        clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+
+        enderecoRepository.saveAll(Arrays.asList(end1, end2, e3));
 
         SimpleDateFormat smDataHora = new SimpleDateFormat("dd/MM/yyyy hh:MM");
         Pedido ped1 = new Pedido(null, smDataHora.parse("30/09/2017 10:32"), end1, cli1);
