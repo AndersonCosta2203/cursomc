@@ -1,6 +1,7 @@
 package br.com.cursomc.config;
 
 import br.com.cursomc.security.JWTAuthenticationFilter;
+import br.com.cursomc.security.JWTAuthorizationFilter;
 import br.com.cursomc.security.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -67,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
 
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
-        // http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
+        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 
         // Para garantir que o sistema não irá armazenar sessão
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
