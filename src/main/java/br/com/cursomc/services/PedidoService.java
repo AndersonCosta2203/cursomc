@@ -5,8 +5,13 @@ import br.com.cursomc.domain.enums.EstadoPagamento;
 import br.com.cursomc.repositories.ItemPedidoRepository;
 import br.com.cursomc.repositories.PagamentoRepository;
 import br.com.cursomc.repositories.PedidoRepository;
+import br.com.cursomc.security.UserSS;
+import br.com.cursomc.services.exceptions.AuthorizationException;
 import br.com.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -78,5 +83,15 @@ public class PedidoService {
         emailService.sendOrderConfirmationHtmlEmail(obj);
 
         return obj;
+    }
+
+    public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+        UserSS user = UserService.authenticated();
+        if (user == null) {
+            throw new AuthorizationException("Acesso negado");
+        }
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        Cliente cliente =  clienteService.find(user.getId());
+        return pedidoRepository.findByCliente(cliente, pageRequest);
     }
 }
